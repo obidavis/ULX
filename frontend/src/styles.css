@@ -1,0 +1,43 @@
+html, body, #root {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+}
+
+/* styles.css */
+.SliderRoot {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+.SliderRoot[data-orientation="vertical"] {
+	flex-direction: column;
+	width: 20px;
+    /* height: 100%; */
+}
+
+.SliderTrack {
+	position: relative;
+	flex-grow: 1;
+	background-color: white;
+}
+.SliderTrack[data-orientation="vertical"] {
+	width: 3px;
+}
+
+.SliderRange {
+	position: absolute;
+	background-color: black;
+}
+.SliderRange[data-orientation="vertical"] {
+	width: 100%;
+}
+
+.SliderThumb {
+	display: block;
+	width: 20px;
+	height: 20px;
+	background-color: white;
+    border-radius: 100%;
+    border: 3px solid white;
+}

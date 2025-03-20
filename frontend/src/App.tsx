@@ -1,14 +1,32 @@
 import React from "react";
-import { Theme, Button } from "@radix-ui/themes";
+import Title from "./components/Title";
+import Presets from "./components/Presets";
+import ChannelEditor from "./components/ChannelEditor";
+import { Flex, Theme } from "@radix-ui/themes";
 
-const App: React.FC = () => {
+const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Theme accentColor="cyan" className="theme-container">
-      <div style={{ padding: "20px", textAlign: "center" }}>
-        <h1>ULX</h1>
-        <Button>Click me</Button>
-      </div>
+    <Theme accentColor="blue" radius="large" appearance="dark" >
+      {children}
+      {/* <ThemePanel /> */}
     </Theme>
+  )
+}
+
+
+const App = () => {
+  return (
+    <ThemeWrapper>
+      <Flex direction="row" width="100vw" >
+        <Flex direction="column" width="50%" flexGrow="1">
+          <Title />
+          <Presets />
+        </Flex>
+        <Flex width="50%" flexGrow="1" style={{ padding: "0.5rem" }} >
+          <ChannelEditor />
+        </Flex>
+      </Flex>
+    </ThemeWrapper>
   );
 };
 
