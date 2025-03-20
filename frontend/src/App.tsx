@@ -1,11 +1,12 @@
-import React from "react";
+import React, { use, useEffect } from "react";
 import Title from "./components/Title";
 import Presets from "./components/Presets";
 import ChannelEditor from "./components/ChannelEditor";
-import { Box, Card, Flex, Theme } from "@radix-ui/themes";
+import { Box, Flex, Theme } from "@radix-ui/themes";
 import ChannelVisualiser from "./components/ChannelVisualiser";
+import usePresetStore from "./hooks/usePresetStore";
 
-const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
+const ThemeWrapper = ({ children }: { children?: React.ReactNode }) => {
   return (
     <Theme accentColor="blue" radius="large" appearance="dark" >
       {children}
@@ -16,6 +17,11 @@ const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
 
 
 const App = () => {
+  const loadPresets = usePresetStore((state) => state.loadPresets);
+  const initPresets = usePresetStore((state) => state.initPresets);
+  useEffect(() => {
+    loadPresets().then((initPresets));
+  }, []);
   return (
     <ThemeWrapper>
       <Flex direction="column" height="100vh" >

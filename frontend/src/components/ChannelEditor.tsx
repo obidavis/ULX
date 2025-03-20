@@ -3,8 +3,9 @@ import React, { useCallback, useEffect } from "react";
 import Selector from "./Selector";
 import ColourPicker from "./ColourPicker";
 import VerticalSlider from "./VerticalSlider";
-import usePresetStore from "../store";
+import usePresetStore from "../hooks/usePresetStore";
 import { ColorService, IColor } from "react-color-palette";
+import useSocket from "../hooks/useWebSocket";
 
 const ChannelEditor: React.FC = () => {
   const selectedChannel = usePresetStore((state) => state.selectedChannel);
@@ -12,6 +13,7 @@ const ChannelEditor: React.FC = () => {
   const setSelectedChannel = usePresetStore(
     (state) => state.setSelectedChannel
   );
+  const preset = usePresetStore((state) => state.presets[selectedPreset]);
   const intensity = usePresetStore(
     (state) => state.presets[selectedPreset].channels[selectedChannel].intensity
   );
@@ -21,6 +23,18 @@ const ChannelEditor: React.FC = () => {
   const setColor = usePresetStore((state) => state.setColour);
   const setIntensity = usePresetStore((state) => state.setIntensity);
 
+  const { sendPreset } = useSocket();
+
+  const handleColourChange = useCallback(({ rgb }: IColor) => {
+    setColor({
+      r: rgb.r,
+      g: rgb.g,
+      b: rgb.b,
+    });
+    sendPreset(preset);
+    
+  }, [selectedChannel, intensity, setColor, sendPreset]);
+  
   const handleColourCommit = useCallback(({ rgb }: IColor) => {
     setColor({
       r: rgb.r,
@@ -28,6 +42,11 @@ const ChannelEditor: React.FC = () => {
       b: rgb.b,
     });
   }, []);
+
+  const handleIntensityChange = useCallback((intensity: number) => {
+    setIntensity(intensity);
+    sendPreset(preset);
+  }, [selectedChannel, colour, intensity, sendPreset]);
 
   const handleIntensityCommit = useCallback((intensity: number) => {
     setIntensity(intensity);
@@ -46,12 +65,12 @@ const ChannelEditor: React.FC = () => {
         <Flex direction="row" gap="1rem">
           <ColourPicker
             value={color}
-            onChange={handleColourCommit}
+            onChange={handleColourChange}
             onCommit={handleColourCommit}
           />
           <VerticalSlider
             value={intensity}
-            onChange={handleIntensityCommit}
+            onChange={handleIntensityChange}
             onCommit={handleIntensityCommit}
           />
         </Flex>

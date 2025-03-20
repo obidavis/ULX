@@ -1,7 +1,7 @@
 import { Box, Button, Card, Flex } from "@radix-ui/themes";
 import React, { use } from "react";
 import Selector from "./Selector";
-import usePresetStore from "../store";
+import usePresetStore from "../hooks/usePresetStore";
 
 const Presets: React.FC = () => {
   const numPresets = usePresetStore((state) => state.presets.length);
@@ -16,7 +16,7 @@ const Presets: React.FC = () => {
           <Selector
             selected={selected}
             onSelect={handleSelect}
-            options={numPresets}
+            options={8}
           />
           <Button variant="outline" onClick={savePresets} loading={false}>
             Save

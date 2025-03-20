@@ -1,18 +1,6 @@
 import { create } from "zustand";
 import { produce } from "immer";
-
-interface ChannelState {
-  colour: {
-    r: number;
-    g: number;
-    b: number;
-  };
-  intensity: number;
-}
-
-interface Preset {
-  channels: ChannelState[];
-}
+import { ChannelState, Preset } from "../types";
 
 interface PresetState {
   presets: Preset[];
@@ -23,7 +11,8 @@ interface PresetState {
   setColour: (colour: { r: number; g: number; b: number }) => void;
   setIntensity: (intensity: number) => void;
   savePresets(): Promise<void>;
-  loadPresets(): Promise<void>;
+  loadPresets(): Promise<Preset[]>;
+  initPresets(presets: Preset[]): void;
 }
 
 const generateRandomState = (): ChannelState => ({
@@ -37,7 +26,10 @@ const generateRandomState = (): ChannelState => ({
 
 const usePresetStore = create<PresetState>((set, get) => ({
   presets: Array.from({ length: 8 }, () => ({
-    channels: Array.from({ length: 12 }, generateRandomState),
+    channels: Array.from({ length: 8 }, () => ({
+      colour: { r: 0, g: 0, b: 0 },
+      intensity: 0,
+    })),
   })),
   selectedPreset: 0,
   selectedChannel: 0,
@@ -75,8 +67,11 @@ const usePresetStore = create<PresetState>((set, get) => ({
   loadPresets: async () => {
     const response = await fetch("/api/presets");
     const data = await response.json();
-    set({ presets: data });
+    return data.presets;
   },
+  initPresets: (presets) => {
+    set({ presets });
+  }
 }));
 
 export default usePresetStore;
