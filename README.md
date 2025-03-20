@@ -18,6 +18,33 @@ The program allows parameters (colour and size) to be set for 12 channels of lig
 
 Updates in the GUI are reflected in real time on the LEDs, including (obviously) recalling presets but also live clicking and dragging of the colour picker etc. I made no effort to throttle this update speed as it seemed happy. There's also a live preview direct in the GUI in the form of some coloured bars. 
 
+## Setup
+
+### Building the frontend
+
+It's probably easiest to build this on a machine other than the Pi that has Node etc. installed, and just copy over the `dist` directory to the target `frontend` folder
+
+```bash
+cd frontend
+npm run build
+```
+
+### Running the backend
+
+Disclaimer: I haven't tested this on a cleanly imaged Pi
+
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install -r requirements.txt
+sudo .venv/bin/python3 src/server.py
+```
+
+### Operation
+
+The GUI is accessible at localhost:8000/ulx, and the LEDs will be driven off GPIO18, although unless you have the same matrix as me it probably won't look right! 
+
 ## Issues
 
 This was made in a day, so there's certainly a few issues:
