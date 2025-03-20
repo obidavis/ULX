@@ -3,7 +3,7 @@ import { ChannelState, Preset } from "../types";
 import { useCallback } from "react";
 
 const useSocket = () => {
-  const url = "ws://localhost:8000/ws";
+  const url = "/ws";
   const { sendMessage } = useWebSocket(url);
   const sendPreset = useCallback((preset: Preset) => {
     sendMessage(JSON.stringify(preset));
