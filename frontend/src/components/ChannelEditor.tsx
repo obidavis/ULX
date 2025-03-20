@@ -46,12 +46,12 @@ const ChannelEditor: React.FC = () => {
         <Flex direction="row" gap="1rem">
           <ColourPicker
             value={color}
-            onChange={() => {}}
+            onChange={handleColourCommit}
             onCommit={handleColourCommit}
           />
           <VerticalSlider
             value={intensity}
-            onChange={() => {}}
+            onChange={handleIntensityCommit}
             onCommit={handleIntensityCommit}
           />
         </Flex>
