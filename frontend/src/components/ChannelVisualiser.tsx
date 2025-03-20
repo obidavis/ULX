@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Flex } from "@radix-ui/themes";
-import usePresetStore from "../store";
+import usePresetStore from "../hooks/usePresetStore";
 
 const ChannelVisualiser: React.FC = () => {
   const { presets, selectedPreset } = usePresetStore();
