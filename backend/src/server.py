@@ -28,7 +28,7 @@ clients: list[WebSocket] = []
 async def get_presets():
     """Returns stored presets"""
     logger.info("GET /api/presets request received.")
-    return {"presets": presets}
+    return {"presets": [p.model_dump() for p in presets]}
 
 
 @app.post("/api/presets")
@@ -126,8 +126,7 @@ def create_default_presets() -> list[Preset]:
         for _ in range(12)
     ]
     presets.append(Preset(channels=random))
-
-    presets.extend([random, blue_stripes, red_stripes, rainbow]) # add some more random presets
+    presets.extend(reversed(presets)) # add some more random presets
 
     return presets
 
