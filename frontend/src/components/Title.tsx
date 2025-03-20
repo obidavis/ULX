@@ -1,11 +1,12 @@
-import { Box, Card, Flex } from "@radix-ui/themes";
+import { Box, Text } from "@radix-ui/themes";
 import React from "react";
 
 const Title: React.FC = () => {
   return (
     <Box style={{ padding: "1rem" }}>
-      <h1>ULX</h1>
-      <h4>Ultra Light (& sound) dmX Controller</h4>
+      <Text color="cyan" size="9">ULX</Text>
+      <br />
+      <Text color="cyan">Ultra Light (& sound) dmX Controller</Text>
     </Box>
   );
 };

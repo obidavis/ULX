@@ -1,4 +1,4 @@
-import { Box, Button, Card, Flex } from "@radix-ui/themes";
+import { Box, Button, Card, Flex, Text } from "@radix-ui/themes";
 import React, { use, useCallback, useEffect } from "react";
 import Selector from "./Selector";
 import usePresetStore from "../hooks/usePresetStore";
@@ -20,7 +20,7 @@ const Presets: React.FC = () => {
     <Box flexGrow="1" style={{ padding: "0.5rem" }}>
       <Card style={{ height: "100%" }}>
         <Flex direction="column" gap="1rem">
-          <label>Presets</label>
+          <Text color="cyan">Presets</Text>
           <Selector
             selected={selectedPreset}
             onSelect={setSelectedPreset}

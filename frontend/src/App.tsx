@@ -8,7 +8,7 @@ import usePresetStore from "./hooks/usePresetStore";
 
 const ThemeWrapper = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <Theme accentColor="blue" radius="large" appearance="dark" >
+    <Theme accentColor="cyan" radius="large" appearance="dark" >
       {children}
       {/* <ThemePanel /> */}
     </Theme>

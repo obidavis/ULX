@@ -4,7 +4,11 @@ html, body, #root {
     height: 100vh;
 }
 
-/* styles.css */
+
+.radix-themes {
+	--default-font-family: 'Montserrat', sans-serif;
+}
+
 .SliderRoot {
 	position: relative;
 	display: flex;
@@ -13,7 +17,6 @@ html, body, #root {
 .SliderRoot[data-orientation="vertical"] {
 	flex-direction: column;
 	width: 20px;
-    /* height: 100%; */
 }
 
 .SliderTrack {

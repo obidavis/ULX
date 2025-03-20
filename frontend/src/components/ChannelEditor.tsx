@@ -1,4 +1,4 @@
-import { Card, Flex } from "@radix-ui/themes";
+import { Card, Flex, Text } from "@radix-ui/themes";
 import React, { useCallback, useEffect } from "react";
 import Selector from "./Selector";
 import ColourPicker from "./ColourPicker";
@@ -58,7 +58,7 @@ const ChannelEditor: React.FC = () => {
   return (
     <Card style={{ height: "100%", width: "100%" }}>
       <Flex direction="column" gap="1rem">
-        <label>Channels</label>
+        <Text color="cyan">Channel Selector</Text>
         <Selector
           selected={selectedChannel}
           onSelect={setSelectedChannel}
