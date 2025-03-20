@@ -12,8 +12,7 @@ const VerticalSlider: React.FC<VerticalSliderProps> = ({ value, onChange, onComm
     <Slider.Root
       className="SliderRoot"
       orientation="vertical"
-      value={[value]}
-      defaultValue={[0]}
+      defaultValue={[value]}
       onValueChange={(value) => onChange(value[0])}
       onValueCommit={(value) => onCommit(value[0])}
     >
