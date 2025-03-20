@@ -19,6 +19,7 @@ const ChannelVisualiser: React.FC = () => {
               backgroundColor: `rgb(${r}, ${g}, ${b})`,
               transition: "height 0.1s ease-in-out",
               borderRadius: "10px",
+              marginInline: "1rem",
             }}
           />
         );

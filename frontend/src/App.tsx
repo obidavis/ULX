@@ -30,11 +30,11 @@ const App = () => {
             <Title />
             <Presets />
           </Flex>
-          <Flex width="66%" flexGrow="1" style={{ padding: "0.5rem" }} >
+          <Flex minWidth="60%" flexGrow="1" style={{ padding: "0.5rem" }} >
             <ChannelEditor />
           </Flex>
         </Flex>
-        <Box height="30%" style={{ padding: "1rem" }}>
+        <Box height="40%" style={{ padding: "1rem" }}>
           <ChannelVisualiser />
         </Box>
       </Flex>
