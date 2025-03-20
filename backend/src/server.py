@@ -1,9 +1,11 @@
 from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field
 import json
 import os
 import logging
+
+from models import Preset, PresetData, ChannelState, Colour
+from led_driver import display_channels
 
 logging.basicConfig(
     level=logging.INFO,
@@ -19,21 +21,6 @@ app.mount("/ui", StaticFiles(directory="../frontend/dist", html=True), name="ui"
 PRESETS_FILE = "presets.json"
 
 
-class Colour(BaseModel):
-    r: float = Field(ge=0, le=255)
-    g: float = Field(ge=0, le=255)
-    b: float = Field(ge=0, le=255)
-
-
-class ChannelState(BaseModel):
-    colour: Colour
-    intensity: float = Field(ge=0, le=100)
-
-class Preset(BaseModel):
-    channels: list[ChannelState]
-
-class PresetData(BaseModel):
-    presets: list[Preset]
 
 
 def load_presets() -> list[Preset]:
@@ -99,7 +86,7 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             message = await websocket.receive_json()
             update = Preset(**message)
-            logger.info(f"Received message")
+            display_channels(update.channels)
 
     except WebSocketDisconnect:
         clients.remove(websocket)
