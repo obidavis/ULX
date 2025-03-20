@@ -26,9 +26,9 @@ const generateRandomState = (): ChannelState => ({
 
 const usePresetStore = create<PresetState>((set, get) => ({
   presets: Array.from({ length: 8 }, () => ({
-    channels: Array.from({ length: 8 }, () => ({
-      colour: { r: 0, g: 0, b: 0 },
-      intensity: 0,
+    channels: Array.from({ length: 12 }, () => ({
+      colour: { r: 200, g: 100, b: 0 },
+      intensity: 50,
     })),
   })),
   selectedPreset: 0,
@@ -65,9 +65,14 @@ const usePresetStore = create<PresetState>((set, get) => ({
     });
   },
   loadPresets: async () => {
-    const response = await fetch("/api/presets");
-    const data = await response.json();
-    return data.presets;
+    try {
+      const response = await fetch("/api/presets");
+      const data = await response.json();
+      return data.presets;
+    } catch (e) {
+      console.error(e);
+      return get().presets;
+    }
   },
   initPresets: (presets) => {
     set({ presets });
