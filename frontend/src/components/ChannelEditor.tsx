@@ -25,15 +25,18 @@ const ChannelEditor: React.FC = () => {
 
   const { sendPreset } = useSocket();
 
+  useEffect(() => {
+    sendPreset(preset);
+  }, [colour, intensity, preset]);
+
   const handleColourChange = useCallback(({ rgb }: IColor) => {
     setColor({
       r: rgb.r,
       g: rgb.g,
       b: rgb.b,
     });
-    sendPreset(preset);
-    
-  }, [selectedChannel, intensity, setColor, sendPreset]);
+  }
+  , [selectedChannel, colour, setColor]);
   
   const handleColourCommit = useCallback(({ rgb }: IColor) => {
     setColor({
@@ -41,20 +44,19 @@ const ChannelEditor: React.FC = () => {
       g: rgb.g,
       b: rgb.b,
     });
-  }, []);
+  }, [selectedChannel, colour, setColor]);
 
   const handleIntensityChange = useCallback((intensity: number) => {
     setIntensity(intensity);
-    sendPreset(preset);
-  }, [selectedChannel, colour, intensity, sendPreset]);
+  }, [selectedChannel, intensity, setIntensity]);
 
   const handleIntensityCommit = useCallback((intensity: number) => {
     setIntensity(intensity);
-  }, []);
+  }, [selectedChannel, intensity, setIntensity]);
 
   const color: IColor = ColorService.convert("rgb", { ...colour, a: 1 });
   return (
-    <Card style={{ height: "100%" }}>
+    <Card style={{ height: "100%", width: "100%" }}>
       <Flex direction="column" gap="1rem">
         <label>Channels</label>
         <Selector
