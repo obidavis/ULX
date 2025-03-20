@@ -7,15 +7,20 @@ interface SelectorProps {
   options: number;
 }
 
-const Selector: React.FC<SelectorProps> = ({ selected: selectedChannel, onSelect: setSelectedChannel, options: numChannels }) => {
+const Selector: React.FC<SelectorProps> = ({ selected, onSelect, options }) => {
   return (
-      <RadioCards.Root defaultValue={String(selectedChannel)} columns={String(numChannels)} gap="2" onValueChange={(value) => setSelectedChannel(Number(value))}>
-        {Array.from({ length: numChannels }, (_, i) => (
-          <RadioCards.Item key={i} value={String(i + 1)} >
-            {i + 1}
-          </RadioCards.Item>
-        ))}
-      </RadioCards.Root>
+    <RadioCards.Root
+      value={selected.toString()}
+      columns={options.toString()}
+      gap="2"
+      onValueChange={(value) => onSelect(Number(value))}
+    >
+      {Array.from({ length: options }, (_, i) => (
+        <RadioCards.Item key={i} value={i.toString()}>
+          {i + 1}
+        </RadioCards.Item>
+      ))}
+    </RadioCards.Root>
   );
 };
 

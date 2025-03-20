@@ -1,21 +1,26 @@
 import { Box, Button, Card, Flex } from "@radix-ui/themes";
-import React from "react";
+import React, { use } from "react";
 import Selector from "./Selector";
-
+import usePresetStore from "../store";
 
 const Presets: React.FC = () => {
-  const loading = false;
-  const handleSelect = () => {};
-  const handleSave = () => {};
-  const numPresets = 10;
-  const selected = 1;
+  const numPresets = usePresetStore((state) => state.presets.length);
+  const selected = usePresetStore((state) => state.selectedPreset);
+  const handleSelect = usePresetStore((state) => state.setSelectedPreset);
+  const savePresets = usePresetStore((state) => state.savePresets);
   return (
     <Box flexGrow="1" style={{ padding: "0.5rem" }}>
       <Card style={{ height: "100%" }}>
         <Flex direction="column" gap="1rem">
           <label>Presets</label>
-          <Selector selected={selected} onSelect={handleSelect} options={numPresets} />
-          <Button variant="outline" onClick={handleSave} loading={loading}>Save</Button>
+          <Selector
+            selected={selected}
+            onSelect={handleSelect}
+            options={numPresets}
+          />
+          <Button variant="outline" onClick={savePresets} loading={false}>
+            Save
+          </Button>
         </Flex>
       </Card>
     </Box>
